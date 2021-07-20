@@ -55,10 +55,10 @@ lazy val server = (project in file("server"))
     scalaVersion := "2.12.8",
 
     libraryDependencies ++= Seq(
-      "org.scaldi" %% "scaldi-play" % "0.5.17",
+      "org.scaldi" %% "scaldi-play" % "0.6.1",
       PlayImport.guice,
-      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
-      "com.typesafe.akka" %% "akka-stream-testkit" % "2.5.19" % Test
+      "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
+      "com.typesafe.akka" %% "akka-stream-testkit" % "2.6.14" % Test
     ),
 
     scalaJSProjects := Seq(client),

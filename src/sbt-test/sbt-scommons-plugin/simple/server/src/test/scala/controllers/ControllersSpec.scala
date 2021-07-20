@@ -1,9 +1,9 @@
 package controllers
 
-import akka.testkit.SocketUtil
 import org.scalatest.{Suites, TestSuite}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
-import play.api.Application
+import play.api.{Application, OptionalDevContext}
+import scaldi.Module
 import scaldi.play.ScaldiApplicationBuilder
 
 class ControllersSpec extends Suites(
@@ -11,10 +11,7 @@ class ControllersSpec extends Suites(
 ) with TestSuite
   with GuiceOneServerPerSuite {
 
-  override lazy val port: Int = {
-    val (_, serverPort) = SocketUtil.temporaryServerHostnameAndPort()
-    serverPort
-  }
-
-  implicit override lazy val app: Application = new ScaldiApplicationBuilder().build()
+  implicit override lazy val app: Application = new ScaldiApplicationBuilder(modules = List(new Module {
+    bind[OptionalDevContext] to new OptionalDevContext(None)
+  })).build()
 }

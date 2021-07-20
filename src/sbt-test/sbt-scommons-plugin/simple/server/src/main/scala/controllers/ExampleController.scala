@@ -1,9 +1,9 @@
 package controllers
 
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{AbstractController, Action, ControllerComponents}
 import play.twirl.api.StringInterpolation
 
-class ExampleController extends Controller {
+class ExampleController(components: ControllerComponents) extends AbstractController(components) {
 
   val index = {
     val scriptUrl = bundleUrl("client")

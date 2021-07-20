@@ -13,7 +13,7 @@ lazy val `sbt-scommons-plugin` = (project in file("."))
     sbtPlugin := true,
     organization := "org.scommons.sbt",
     name := "sbt-scommons-plugin",
-    description := "Sbt auto-plugin with common tasks/utils for Scala Commons modules",
+    description := "Sbt auto-plugin with common Scala/Scala.js tasks/utils",
     scalaVersion := "2.12.7",
     scalacOptions ++= Seq(
       //"-Xcheckinit",
@@ -47,13 +47,6 @@ lazy val `sbt-scommons-plugin` = (project in file("."))
     addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31"),
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.16.0"),
 
-    // when updating plugins versions here,
-    // don't forget to set the same versions in `scommons.sbtplugin.project.CommonLibs` !!!
-    //
-    addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.21"), // same as CommonLibs.playVer
-    addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.2"),
-    addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "1.1.3"),
-    
     //addSbtPlugin("com.storm-enroute" % "mecha" % "0.3"), //TODO: use version for sbt 1.x
     
     addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.1"),

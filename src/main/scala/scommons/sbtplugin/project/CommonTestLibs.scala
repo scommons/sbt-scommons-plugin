@@ -7,9 +7,9 @@ trait CommonTestLibs {
 
   val scalaTestVersion = "3.2.2"
   val scalaTestPlusMockitoVersion = "3.2.2.0"
-  val scalaTestPlusPlayVersion = "3.1.2"
+  val scalaTestPlusPlayVersion = "5.1.0"
   val scalaMockVersion = "4.4.0"
-  val dockerTestkitVersion = "0.9.6"
+  val dockerTestkitVersion = "0.9.9"
 
   val akkaVersion: String = CommonLibs.akkaVersion
 
