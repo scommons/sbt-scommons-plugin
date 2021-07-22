@@ -3,7 +3,6 @@ package scommons.sbtplugin.project
 import sbt.Keys._
 import sbt._
 import scommons.sbtplugin.mecha.MechaProjectBuild
-import scoverage.ScoverageKeys._
 
 trait CommonModule extends ProjectDef with MechaProjectBuild {
 
@@ -27,9 +26,12 @@ object CommonModule {
   // https://github.com/JetBrains/sbt-ide-settings
   //
   val ideExcludedDirectories = SettingKey[Seq[File]]("ide-excluded-directories")
+  
+  val coverageMinimum = SettingKey[Double]("coverage-minimum")
+  val coverageExcludedPackages = SettingKey[String]("coverage-excluded-packages")
 
   val settings: Seq[Setting[_]] = Seq(
-    scalaVersion := "2.12.8",
+    scalaVersion := "2.13.1",
     scalacOptions ++= Seq(
       //see https://docs.scala-lang.org/overviews/compiler-options/index.html#Warning_Settings
       //"-Xcheckinit",
@@ -41,9 +43,7 @@ object CommonModule {
       "-deprecation",
       "-feature"
     ),
-    //ivyScala := ivyScala.value map {
-    //  _.copy(overrideScalaVersion = true)
-    //},
+
     ideExcludedDirectories := {
       val base = baseDirectory.value
       List(
@@ -51,7 +51,7 @@ object CommonModule {
         base / "target"
       )
     },
-    //when run tests with coverage: "sbt clean coverage test it:test coverageReport && sbt coverageAggregate"
+    
     coverageMinimum := 80,
 
     resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"

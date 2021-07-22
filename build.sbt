@@ -14,7 +14,7 @@ lazy val `sbt-scommons-plugin` = (project in file("."))
     organization := "org.scommons.sbt",
     name := "sbt-scommons-plugin",
     description := "Sbt auto-plugin with common Scala/Scala.js tasks/utils",
-    scalaVersion := "2.12.7",
+//    scalaVersion := "2.12.7",
     scalacOptions ++= Seq(
       //"-Xcheckinit",
       "-Xfatal-warnings",
@@ -38,23 +38,16 @@ lazy val `sbt-scommons-plugin` = (project in file("."))
       )
     },
     
-    //when run tests with coverage: "sbt clean coverage test coverageReport"
     coverageMinimum := 80,
     coverageHighlighting := false,
     coverageExcludedPackages := ".*mecha.*;.*project.*",
 
     addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0"),
     addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.31"),
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.16.0"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.18.0"),
 
     //addSbtPlugin("com.storm-enroute" % "mecha" % "0.3"), //TODO: use version for sbt 1.x
     
-    addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.1"),
-    addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.2.4"),
-
-    addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.5"),
-    addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.0.1"),
-
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % "3.2.2" % "test",
       "org.scalamock" %% "scalamock" % "4.4.0" % "test"

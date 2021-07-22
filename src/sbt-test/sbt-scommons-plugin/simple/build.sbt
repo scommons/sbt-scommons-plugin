@@ -11,7 +11,7 @@ lazy val client = (project in file("client"))
   .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, ScalaJSWeb)
   .settings(
     version := "0.1.0-SNAPSHOT",
-    scalaVersion := "2.12.8",
+    scalaVersion := "2.13.1",
 
     libraryDependencies ++= Seq(
       ("com.googlecode.web-commons" % "web-common-client" % "1.0.5").intransitive()
@@ -52,7 +52,7 @@ lazy val server = (project in file("server"))
   .disablePlugins(PlayLayoutPlugin)
   .settings(
     version := "0.1.0-SNAPSHOT",
-    scalaVersion := "2.12.8",
+    scalaVersion := "2.13.1",
 
     libraryDependencies ++= Seq(
       "org.scaldi" %% "scaldi-play" % "0.6.1",

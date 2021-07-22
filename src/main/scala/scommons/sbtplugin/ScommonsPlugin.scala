@@ -13,7 +13,7 @@ object ScommonsPlugin extends AutoPlugin {
 
   override def trigger: PluginTrigger = allRequirements
 
-  override def requires = ScalaJSBundlerPlugin
+  override def requires: Plugins = ScalaJSBundlerPlugin
 
   object autoImport {
     val scommonsResourcesFileFilter: SettingKey[FileFilter] = settingKey[FileFilter](
@@ -122,11 +122,14 @@ object ScommonsPlugin extends AutoPlugin {
     //   cleanKeepFiles contains directory/file that are not directly under cleanFiles
     clean := doClean(Seq(managedDirectory.value, target.value), cleanKeepFiles.value),
 
-    cleanKeepFiles ++= Seq(
-      target.value / "scala-2.12" / "scalajs-bundler" / "main" / "node_modules",
-      target.value / "scala-2.12" / "scalajs-bundler" / "test" / "node_modules",
-      target.value / "scalajs-bundler-jsdom" / "node_modules"
-    )
+    cleanKeepFiles ++= {
+      val scalaVer = scalaBinaryVersion.value
+      Seq(
+        target.value / s"scala-$scalaVer" / "scalajs-bundler" / "main" / "node_modules",
+        target.value / s"scala-$scalaVer" / "scalajs-bundler" / "test" / "node_modules",
+        target.value / "scalajs-bundler-jsdom" / "node_modules"
+      )
+    }
   )
 
   private def sjsStageSettings(sjsStage: TaskKey[Attributed[File]], config: ConfigKey) = {

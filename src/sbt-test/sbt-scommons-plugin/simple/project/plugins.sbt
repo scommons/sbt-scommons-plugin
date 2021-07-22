@@ -9,4 +9,5 @@ sys.props.get("plugin.version") match {
 }
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.8")
-addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler-sjs06" % "0.16.0")
+
+addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler-sjs06" % "0.18.0")

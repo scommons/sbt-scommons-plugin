@@ -6,8 +6,7 @@ import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt._
 import scommons.sbtplugin.ScommonsPlugin.autoImport._
-import scommons.sbtplugin.project.CommonModule.ideExcludedDirectories
-import scoverage.ScoverageKeys._
+import scommons.sbtplugin.project.CommonModule._
 
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
