@@ -25,7 +25,11 @@ lazy val client = (project in file("client"))
     scommonsBundlesFileFilter := "*.sql",
 
     //scala.js specific settings
-    //scalaJSModuleKind := ModuleKind.CommonJSModule,
+    scalaJSLinkerConfig ~= {
+      //_.withModuleKind(ModuleKind.CommonJSModule)
+      _.withSourceMap(false)
+        .withESFeatures(_.withUseECMAScript2015(false))
+    },
     scalaJSUseMainModuleInitializer := true,
     //webpackBundlingMode := BundlingMode.LibraryOnly(),
     version in webpack := "4.29.0",
@@ -33,8 +37,6 @@ lazy val client = (project in file("client"))
     webpackConfigFile in fullOptJS := Some(baseDirectory.value / "client.webpack.config.js"),
     scommonsRequireWebpackInTest := true,
     webpackConfigFile in Test := Some(baseDirectory.value / "test.webpack.config.js"),
-    
-    emitSourceMaps := false,
     webpackEmitSourceMaps := false,
 
     npmDevDependencies in Compile ++= Seq(

@@ -62,13 +62,13 @@ trait CommonClientModule extends CommonModule {
 object CommonClientModule {
 
   val settings: Seq[Setting[_]] = Seq(
-    scalaJSModuleKind := ModuleKind.CommonJSModule,
-    
-    //Opt-in @ScalaJSDefined by default
-    scalacOptions += "-P:scalajs:sjsDefinedByDefault",
+    scalaJSLinkerConfig ~= {
+      _.withModuleKind(ModuleKind.CommonJSModule)
+        .withSourceMap(false)
+        .withESFeatures(_.withUseECMAScript2015(false))
+    },
     requireJsDomEnv in Test := false,
     version in webpack := "4.29.0",
-    emitSourceMaps := false,
     webpackEmitSourceMaps := false,
 
     npmDependencies in Compile ++= Seq(

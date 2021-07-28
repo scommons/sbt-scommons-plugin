@@ -53,17 +53,17 @@ object CommonMobileModule {
       "org.scommons.react-native" % "scommons-react-native-test" % "*"
     ),
 
-    scalaJSModuleKind := ModuleKind.CommonJSModule,
+    scalaJSLinkerConfig ~= {
+      _.withModuleKind(ModuleKind.CommonJSModule)
+        .withSourceMap(false)
+        .withESFeatures(_.withUseECMAScript2015(false))
+    },
     scalaJSUseMainModuleInitializer := false,
     webpackBundlingMode := BundlingMode.LibraryOnly(),
-    
-    //Opt-in @ScalaJSDefined by default
-    scalacOptions += "-P:scalajs:sjsDefinedByDefault",
     
     // react-native DO NOT require DOM
     requireJsDomEnv in Test := false,
     version in webpack := "3.5.5", //TODO: migrate to 4.29.0
-    emitSourceMaps := false,
     webpackEmitSourceMaps := false,
 
     npmDependencies in Compile ++= Seq(
