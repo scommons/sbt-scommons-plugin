@@ -58,6 +58,11 @@ object CommonMobileModule {
         .withSourceMap(false)
         .withESFeatures(_.withUseECMAScript2015(false))
     },
+    //Opt-in @ScalaJSDefined by default
+    scalacOptions += {
+      if (scalaJSVersion.startsWith("0.6")) "-P:scalajs:sjsDefinedByDefault"
+      else ""
+    },
     scalaJSUseMainModuleInitializer := false,
     webpackBundlingMode := BundlingMode.LibraryOnly(),
     
