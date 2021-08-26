@@ -59,6 +59,7 @@ object ScommonsPlugin extends AutoPlugin {
         "*.pdf",
     
     scommonsResourcesArtifacts := Seq(
+      "org.scommons.shogowada" % "scalajs-reactjs-core" % "*",
       "org.scommons.react" % "scommons-react-core" % "*",
       "org.scommons.client" % "scommons-client-ui" % "*"
     ),

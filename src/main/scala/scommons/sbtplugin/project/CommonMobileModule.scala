@@ -49,6 +49,7 @@ object CommonMobileModule {
   val settings: Seq[Setting[_]] = Seq(
 
     scommonsResourcesArtifacts := Seq(
+      "org.scommons.shogowada" % "scalajs-reactjs-core" % "*",
       "org.scommons.react" % "scommons-react-core" % "*",
       "org.scommons.react-native" % "scommons-react-native-test" % "*"
     ),
