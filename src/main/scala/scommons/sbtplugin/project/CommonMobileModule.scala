@@ -68,21 +68,18 @@ object CommonMobileModule {
     
     // react-native DO NOT require DOM
     requireJsDomEnv in Test := false,
-    version in webpack := "3.5.5", //TODO: migrate to 4.29.0
+    version in webpack := "4.29.0",
     webpackEmitSourceMaps := false,
 
     npmDependencies in Compile ++= Seq(
-      "react" -> "^16.8.0",
-      "react-dom" -> "^16.8.0" //TODO: remove dependency on react-dom
+      "react" -> "^16.8.0"
     ),
     npmResolutions in Compile ++= Map(
-      "react" -> "^16.8.0",
-      "react-dom" -> "^16.8.0"
+      "react" -> "^16.8.0"
     ),
 
     npmResolutions in Test ++= Map(
-      "react" -> "^16.8.0",
-      "react-dom" -> "^16.8.0"
+      "react" -> "^16.8.0"
     ),
     npmDevDependencies in Test ++= Seq(
       "module-alias" -> "2.2.2"
