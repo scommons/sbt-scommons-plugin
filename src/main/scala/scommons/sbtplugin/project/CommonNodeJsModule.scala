@@ -6,60 +6,36 @@ import org.scalajs.sbtplugin.ScalaJSPlugin
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt._
-import scommons.sbtplugin.ScommonsPlugin.autoImport._
-import scommons.sbtplugin.project.CommonModule._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
+import scommons.sbtplugin.project.CommonModule.ideExcludedDirectories
 
-trait CommonClientModule extends CommonModule {
+trait CommonNodeJsModule extends CommonModule {
 
   def scommonsNodejsVersion: String
-  def scommonsReactVersion: String
-  def scommonsClientVersion: String
 
   override def definition: Project = {
     super.definition
       .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin)
-      .settings(CommonClientModule.settings: _*)
-      .settings(
-        coverageExcludedPackages := ".*Css",
-
-        scalaJSUseMainModuleInitializer := true,
-        webpackBundlingMode := BundlingMode.LibraryOnly(),
-        
-        //dev
-        webpackConfigFile in fastOptJS := Some(baseDirectory.value / "client.webpack.config.js"),
-        //production
-        webpackConfigFile in fullOptJS := Some(baseDirectory.value / "client.webpack.config.js"),
-        //reload workflow and tests
-        scommonsRequireWebpackInTest := true,
-        webpackConfigFile in Test := Some(baseDirectory.value / "test.webpack.config.js")
-      )
+      .settings(CommonNodeJsModule.settings: _*)
   }
 
-  override def internalDependencies: Seq[ClasspathDep[ProjectReference]] = Nil
-
   override def superRepoProjectsDependencies: Seq[(String, String, Option[String])] = Seq(
-    ("scommons-client", "scommons-client-ui", None),
-    ("scommons-react", "scommons-react-core", None),
-    ("scommons-react", "scommons-react-dom", None),
-    ("scommons-react", "scommons-react-redux", None),
-    
-    ("scommons-nodejs", "scommons-nodejs-test", Some("test")),
-    ("scommons-react", "scommons-react-test", Some("test"))
+    ("scommons-nodejs", "scommons-nodejs-core", None),
+
+    ("scommons-nodejs", "scommons-nodejs-test", Some("test"))
   )
 
   override def runtimeDependencies: Def.Initialize[Seq[ModuleID]] = Def.setting(Seq(
-    "org.scommons.client" %%% "scommons-client-ui" % scommonsClientVersion
+    "org.scommons.nodejs" %%% "scommons-nodejs-core" % scommonsNodejsVersion
   ))
 
   override def testDependencies: Def.Initialize[Seq[ModuleID]] = Def.setting(Seq(
-    "org.scommons.nodejs" %%% "scommons-nodejs-test" % scommonsNodejsVersion,
-    "org.scommons.react" %%% "scommons-react-test" % scommonsReactVersion
-  ).map(_  % "test"))
+    "org.scommons.nodejs" %%% "scommons-nodejs-test" % scommonsNodejsVersion
+  ).map(_ % "test"))
 }
 
-object CommonClientModule {
+object CommonNodeJsModule {
 
   val settings: Seq[Setting[_]] = Seq(
     scalaJSLinkerConfig ~= {

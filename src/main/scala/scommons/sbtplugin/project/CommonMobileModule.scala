@@ -1,13 +1,13 @@
 package scommons.sbtplugin.project
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
+import org.scalajs.jsenv.nodejs.NodeJSEnv
 import org.scalajs.sbtplugin.ScalaJSPlugin
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt._
 import scommons.sbtplugin.ScommonsPlugin.autoImport._
 import scommons.sbtplugin.project.CommonModule.ideExcludedDirectories
-
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 
@@ -71,20 +71,19 @@ object CommonMobileModule {
     requireJsDomEnv in Test := false,
     version in webpack := "4.29.0",
     webpackEmitSourceMaps := false,
+    parallelExecution in Test := false,
 
-    npmDependencies in Compile ++= Seq(
-      "react" -> "^16.8.0"
-    ),
-    npmResolutions in Compile ++= Map(
-      "react" -> "^16.8.0"
-    ),
-
-    npmResolutions in Test ++= Map(
-      "react" -> "^16.8.0"
-    ),
     npmDevDependencies in Test ++= Seq(
       "module-alias" -> "2.2.2"
     ),
+
+    // required for node.js >= v12.12.0
+    // see:
+    //   https://github.com/nodejs/node/pull/29919
+    scalaJSLinkerConfig in Test ~= {
+      _.withSourceMap(true)
+    },
+    jsEnv in Test := new NodeJSEnv(NodeJSEnv.Config().withArgs(List("--enable-source-maps"))),
 
     ideExcludedDirectories ++= {
       val base = baseDirectory.value
