@@ -1,9 +1,6 @@
 
 val ideExcludedDirectories = SettingKey[Seq[File]]("ide-excluded-directories")
 
-val scalaJSVersion =
-  Option(System.getenv("SCALAJS_VERSION")).getOrElse("0.6.31")
-
 lazy val `sbt-scommons-plugin` = (project in file("."))
   .enablePlugins(SbtPlugin)
   .settings(
@@ -15,12 +12,8 @@ lazy val `sbt-scommons-plugin` = (project in file("."))
   .settings(
     sbtPlugin := true,
     organization := "org.scommons.sbt",
-    name := {
-      if (scalaJSVersion.startsWith("0.6")) "sbt-scommons-plugin-sjs06"
-      else "sbt-scommons-plugin"
-    },
+    name := "sbt-scommons-plugin",
     description := "Sbt auto-plugin with common Scala/Scala.js tasks/utils",
-//    scalaVersion := "2.12.7",
     scalacOptions ++= Seq(
       //"-Xcheckinit",
       "-Xfatal-warnings",
@@ -49,26 +42,14 @@ lazy val `sbt-scommons-plugin` = (project in file("."))
     coverageExcludedPackages := ".*mecha.*;.*project.*",
 
     addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0"),
-    addSbtPlugin("org.scala-js" % "sbt-scalajs" % scalaJSVersion),
-
-    if (scalaJSVersion.startsWith("0.6")) {
-      addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.18.0")
-    }
-    else {
-      addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.18.0")
-    },
+    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.1.0"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.18.0"),
 
     //addSbtPlugin("com.storm-enroute" % "mecha" % "0.3"), //TODO: use version for sbt 1.x
     
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % "3.2.2" % "test",
-
-      if (scalaJSVersion.startsWith("0.6")) {
-        "org.scalamock" %% "scalamock" % "4.4.0" % "test"
-      }
-      else {
-        "org.scalamock" %% "scalamock" % "5.0.0" % "test"
-      }
+      "org.scalamock" %% "scalamock" % "5.0.0" % "test"
     ),
 
     //resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",

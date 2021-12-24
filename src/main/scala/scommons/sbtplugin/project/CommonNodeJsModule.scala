@@ -43,11 +43,6 @@ object CommonNodeJsModule {
         .withSourceMap(false)
         .withESFeatures(_.withUseECMAScript2015(false))
     },
-    //Opt-in @ScalaJSDefined by default
-    scalacOptions += {
-      if (scalaJSVersion.startsWith("0.6")) "-P:scalajs:sjsDefinedByDefault"
-      else ""
-    },
     requireJsDomEnv in Test := false,
     version in webpack := "4.29.0",
     webpackEmitSourceMaps := false,

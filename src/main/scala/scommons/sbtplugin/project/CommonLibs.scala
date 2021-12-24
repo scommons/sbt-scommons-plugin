@@ -1,7 +1,6 @@
 package scommons.sbtplugin.project
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
-import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
 import sbt._
 
 trait CommonLibs {
@@ -9,9 +8,7 @@ trait CommonLibs {
   val akkaVersion = "2.6.14"
   val playVer = "2.8.8" // should be the same as Play sbt-plugin version (see plugins.sbt)
   val scaldiPlayVer = "0.6.1"
-  val playJsonVer: String =
-    if (scalaJSVersion.startsWith("0.6")) "2.8.1"
-    else "2.9.0"
+  val playJsonVer = "2.9.0"
   val playWsVer = "2.0.8"
   val jodaTimeVer = "2.10.5"
 
