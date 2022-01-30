@@ -71,8 +71,8 @@ jobs:
     - name: Publish RELEASE
       run: |
         mkdir ./keys
-        echo $PGP_PUBLIC > ./keys/pubring.gpg
-        echo $PGP_SECRET > ./keys/secring.gpg
+        echo $PGP_PUBLIC | base64 --decode > ./keys/pubring.gpg
+        echo $PGP_SECRET | base64 --decode > ./keys/secring.gpg
         VERSION="$(echo "$TAG_NAME" | cut -d'v' -f 2)"
         echo "Publish a release version=$VERSION for tag $TAG_NAME"
         version=$VERSION sbt ";^^1.2.8 ;clean ;publishSigned ;sonatypeBundleRelease"
