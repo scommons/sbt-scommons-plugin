@@ -43,18 +43,18 @@ object CommonNodeJsModule {
         .withSourceMap(false)
         .withESFeatures(_.withUseECMAScript2015(false))
     },
-    requireJsDomEnv in Test := false,
-    version in webpack := "4.29.0",
+    Test / requireJsDomEnv := false,
+    webpack / version := "4.29.0",
     webpackEmitSourceMaps := false,
-    parallelExecution in Test := false,
+    Test / parallelExecution := false,
 
     // required for node.js >= v12.12.0
     // see:
     //   https://github.com/nodejs/node/pull/29919
-    scalaJSLinkerConfig in Test ~= {
+    Test / scalaJSLinkerConfig ~= {
       _.withSourceMap(true)
     },
-    jsEnv in Test := new NodeJSEnv(NodeJSEnv.Config().withArgs(List("--enable-source-maps"))),
+    Test / jsEnv := new NodeJSEnv(NodeJSEnv.Config().withArgs(List("--enable-source-maps"))),
 
     ideExcludedDirectories ++= {
       val base = baseDirectory.value

@@ -65,7 +65,6 @@ scommonsResourcesFileFilter :=
     "*.pdf",
 
 scommonsResourcesArtifacts := Seq(
-  "org.scommons.react" % "scommons-react-core" % "*",
   "org.scommons.client" % "scommons-client-ui" % "*"
 ),
 

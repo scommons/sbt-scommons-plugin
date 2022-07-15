@@ -11,7 +11,7 @@ lazy val client = (project in file("client"))
   .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, ScalaJSWeb)
   .settings(
     version := "0.1.0-SNAPSHOT",
-    scalaVersion := "2.13.1",
+    scalaVersion := "2.13.5",
 
     libraryDependencies ++= Seq(
       ("com.googlecode.web-commons" % "web-common-client" % "1.0.5").intransitive()
@@ -32,14 +32,14 @@ lazy val client = (project in file("client"))
     },
     scalaJSUseMainModuleInitializer := true,
     //webpackBundlingMode := BundlingMode.LibraryOnly(),
-    version in webpack := "4.29.0",
-    webpackConfigFile in fastOptJS := Some(baseDirectory.value / "client.webpack.config.js"),
-    webpackConfigFile in fullOptJS := Some(baseDirectory.value / "client.webpack.config.js"),
+    webpack / version := "4.29.0",
+    fastOptJS / webpackConfigFile := Some(baseDirectory.value / "client.webpack.config.js"),
+    fullOptJS / webpackConfigFile := Some(baseDirectory.value / "client.webpack.config.js"),
     scommonsRequireWebpackInTest := true,
-    webpackConfigFile in Test := Some(baseDirectory.value / "test.webpack.config.js"),
+    Test / webpackConfigFile := Some(baseDirectory.value / "test.webpack.config.js"),
     webpackEmitSourceMaps := false,
 
-    npmDevDependencies in Compile ++= Seq(
+    Compile / npmDevDependencies ++= Seq(
       "css-loader" -> "2.1.1",
       "mini-css-extract-plugin" -> "0.12.0",
       "resolve-url-loader" -> "3.1.2",
@@ -54,7 +54,7 @@ lazy val server = (project in file("server"))
   .disablePlugins(PlayLayoutPlugin)
   .settings(
     version := "0.1.0-SNAPSHOT",
-    scalaVersion := "2.13.1",
+    scalaVersion := "2.13.5",
 
     libraryDependencies ++= Seq(
       "org.scaldi" %% "scaldi-play" % "0.6.1",
@@ -64,5 +64,5 @@ lazy val server = (project in file("server"))
     ),
 
     scalaJSProjects := Seq(client),
-    pipelineStages in Assets := Seq(scalaJSPipeline)
+    Assets / pipelineStages := Seq(scalaJSPipeline)
   )

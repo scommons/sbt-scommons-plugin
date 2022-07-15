@@ -5,10 +5,10 @@ import sbt._
 
 trait CommonTestLibs {
 
-  val scalaTestVersion = "3.2.2"
-  val scalaTestPlusMockitoVersion = "3.2.2.0"
+  val scalaTestVersion = "3.2.9"
+  val scalaTestPlusMockitoVersion = "3.2.9.0"
   val scalaTestPlusPlayVersion = "5.1.0"
-  val scalaMockVersion = "5.0.0"
+  val scalaMockVersion = "5.1.0"
   val dockerTestkitVersion = "0.9.9"
 
   val akkaVersion: String = CommonLibs.akkaVersion
