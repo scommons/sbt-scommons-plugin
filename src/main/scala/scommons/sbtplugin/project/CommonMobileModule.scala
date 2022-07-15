@@ -49,7 +49,6 @@ object CommonMobileModule {
   val settings: Seq[Setting[_]] = Seq(
 
     scommonsResourcesArtifacts := Seq(
-      "org.scommons.react" % "scommons-react-core" % "*",
       "org.scommons.react-native" % "scommons-react-native-test" % "*"
     ),
 
@@ -62,22 +61,22 @@ object CommonMobileModule {
     webpackBundlingMode := BundlingMode.LibraryOnly(),
     
     // react-native DO NOT require DOM
-    requireJsDomEnv in Test := false,
-    version in webpack := "4.29.0",
+    Test / requireJsDomEnv := false,
+    webpack / version := "4.29.0",
     webpackEmitSourceMaps := false,
-    parallelExecution in Test := false,
+    Test / parallelExecution := false,
 
-    npmDevDependencies in Test ++= Seq(
+    Test / npmDevDependencies ++= Seq(
       "module-alias" -> "2.2.2"
     ),
 
     // required for node.js >= v12.12.0
     // see:
     //   https://github.com/nodejs/node/pull/29919
-    scalaJSLinkerConfig in Test ~= {
+    Test / scalaJSLinkerConfig ~= {
       _.withSourceMap(true)
     },
-    jsEnv in Test := new NodeJSEnv(NodeJSEnv.Config().withArgs(List("--enable-source-maps"))),
+    Test / jsEnv := new NodeJSEnv(NodeJSEnv.Config().withArgs(List("--enable-source-maps"))),
 
     ideExcludedDirectories ++= {
       val base = baseDirectory.value

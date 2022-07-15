@@ -26,12 +26,13 @@ object CommonModule {
   // https://github.com/JetBrains/sbt-ide-settings
   //
   val ideExcludedDirectories = SettingKey[Seq[File]]("ide-excluded-directories")
+    .withRank(KeyRanks.Invisible)
   
   val coverageMinimum = SettingKey[Double]("coverage-minimum")
   val coverageExcludedPackages = SettingKey[String]("coverage-excluded-packages")
 
   val settings: Seq[Setting[_]] = Seq(
-    scalaVersion := "2.13.1",
+    scalaVersion := "2.13.5",
     scalacOptions ++= Seq(
       //see https://docs.scala-lang.org/overviews/compiler-options/index.html#Warning_Settings
       //"-Xcheckinit",

@@ -24,11 +24,13 @@ $ exists client/target/scala-2.13/scalajs-bundler/test/com/googlecode/common/cli
 $ exists client/target/scala-2.13/scalajs-bundler/test/node_modules
 $ exists client/target/scala-2.13/scalajs-bundler/main/node_modules
 $ absent client/target/scala-2.13/scalajs-bundler/main/client-fastopt-bundle.js
-> server/scalaJSDev
+> set scalaJSStage in Global := FastOptStage
+> server/scalaJSPipeline
 $ exists client/target/scala-2.13/scalajs-bundler/main/client-fastopt-bundle.js
 
 $ absent client/target/scala-2.13/scalajs-bundler/main/client-opt-bundle.js
-> server/scalaJSProd
+> set scalaJSStage in Global := FullOptStage
+> server/scalaJSPipeline
 $ exists client/target/scala-2.13/scalajs-bundler/main/client-opt-bundle.js
 
 > clean

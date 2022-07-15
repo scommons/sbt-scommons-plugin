@@ -1,5 +1,6 @@
 
 val ideExcludedDirectories = SettingKey[Seq[File]]("ide-excluded-directories")
+  .withRank(KeyRanks.Invisible)
 
 lazy val `sbt-scommons-plugin` = (project in file("."))
   .enablePlugins(SbtPlugin)
@@ -41,15 +42,15 @@ lazy val `sbt-scommons-plugin` = (project in file("."))
     coverageHighlighting := false,
     coverageExcludedPackages := ".*mecha.*;.*project.*",
 
-    addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0"),
-    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.1.0"),
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.18.0"),
+    addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.1.0"),
+    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.1"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0"),
 
     //addSbtPlugin("com.storm-enroute" % "mecha" % "0.3"), //TODO: use version for sbt 1.x
     
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.2.2" % "test",
-      "org.scalamock" %% "scalamock" % "5.0.0" % "test"
+      "org.scalatest" %% "scalatest" % "3.2.9" % "test",
+      "org.scalamock" %% "scalamock" % "5.1.0" % "test"
     ),
 
     //resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
@@ -59,7 +60,7 @@ lazy val `sbt-scommons-plugin` = (project in file("."))
     //
     sonatypeProfileName := "org.scommons",
     publishMavenStyle := true,
-    publishArtifact in Test := false,
+    Test / publishArtifact := false,
     publishTo := sonatypePublishToBundle.value,
     pomExtra := {
       <url>https://github.com/scommons/sbt-scommons-plugin</url>
