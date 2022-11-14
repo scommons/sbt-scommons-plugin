@@ -1,3 +1,5 @@
+import definitions.GitHubActionsCI
+import org.scoverage.coveralls.Imports.CoverallsKeys._
 
 val ideExcludedDirectories = SettingKey[Seq[File]]("ide-excluded-directories")
   .withRank(KeyRanks.Invisible)
@@ -41,16 +43,18 @@ lazy val `sbt-scommons-plugin` = (project in file("."))
     coverageMinimum := 80,
     coverageHighlighting := false,
     coverageExcludedPackages := ".*mecha.*;.*project.*",
+    coverallsFailBuildOnError := true,
+    coverallsService := GitHubActionsCI.jobId.map(_ => GitHubActionsCI),
 
     addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.1.0"),
-    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.1"),
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.20.0"),
+    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.10.1"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.0"),
 
     //addSbtPlugin("com.storm-enroute" % "mecha" % "0.3"), //TODO: use version for sbt 1.x
     
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.2.9" % "test",
-      "org.scalamock" %% "scalamock" % "5.1.0" % "test"
+      "org.scalatest" %% "scalatest" % "3.2.14" % "test",
+      "org.scalamock" %% "scalamock" % "5.2.0" % "test"
     ),
 
     //resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",

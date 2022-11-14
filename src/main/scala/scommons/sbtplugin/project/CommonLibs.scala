@@ -11,6 +11,7 @@ trait CommonLibs {
   val playJsonVer = "2.9.0"
   val playWsVer = "2.0.8"
   val jodaTimeVer = "2.10.5"
+  val scalaJsJavaSecureRandomVer = "1.0.0"
 
   //////////////////////////////////////////////////////////////////////////////
   // jvm dependencies
@@ -37,6 +38,8 @@ trait CommonLibs {
   lazy val scalajsDom = Def.setting("org.scala-js" %%% "scalajs-dom" % "2.2.0")
 
   lazy val playJsonJs = Def.setting("com.typesafe.play" %%% "play-json" % playJsonVer)
+
+  lazy val scalaJsJavaSecureRandom = Def.setting("org.scala-js" %%% "scalajs-java-securerandom" % scalaJsJavaSecureRandomVer)
 }
 
 object CommonLibs extends CommonLibs

@@ -30,9 +30,13 @@ object CommonModule {
   
   val coverageMinimum = SettingKey[Double]("coverage-minimum")
   val coverageExcludedPackages = SettingKey[String]("coverage-excluded-packages")
+  val coverallsFailBuildOnError = SettingKey[Boolean](
+    "coverallsFailBuildOnError",
+    "fail build if coveralls step fails"
+  )
 
   val settings: Seq[Setting[_]] = Seq(
-    scalaVersion := "2.13.5",
+    scalaVersion := "2.13.8",
     scalacOptions ++= Seq(
       //see https://docs.scala-lang.org/overviews/compiler-options/index.html#Warning_Settings
       //"-Xcheckinit",
@@ -54,6 +58,11 @@ object CommonModule {
     },
     
     coverageMinimum := 80,
+    coverallsFailBuildOnError := true,
+
+    //improving performance by disabling this feature that was introduced in:
+    //  https://github.com/scoverage/sbt-scoverage/releases/tag/v1.8.0
+    Compile / compile / scalacOptions -= "-P:scoverage:reportTestName",
 
     resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
   )

@@ -4,8 +4,7 @@ import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt._
 import scommons.sbtplugin.util.{BundlesUtils, ResourcesUtils}
-
-import scalajsbundler.Webpack
+import scalajsbundler.{NpmPackage, Webpack}
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 
@@ -99,18 +98,33 @@ object ScommonsPlugin extends AutoPlugin {
         val nodeArgs = (Test / webpackNodeArgs).value
         val bundleName = bundleOutput.data.name.stripSuffix(".js")
         val webpackOutput = targetDir / s"$bundleName-webpack-out.js"
+        val webpackVersion = (webpack / version).value
 
         logger.info("Executing webpack...")
         val loader = bundleOutput.data
 
-        customWebpackConfigFile match {
+        val configArgs = customWebpackConfigFile match {
           case Some(configFile) =>
             val customConfigFileCopy = Webpack.copyCustomWebpackConfigFiles(targetDir, webpackResources.value.get)(configFile)
-            Webpack.run(nodeArgs: _*)("--mode", "development", "--config", customConfigFileCopy.getAbsolutePath, loader.absolutePath, "--output", webpackOutput.absolutePath)(targetDir, logger)
+            Seq("--config", customConfigFileCopy.getAbsolutePath)
           case None =>
-            Webpack.run(nodeArgs: _*)("--mode", "development", loader.absolutePath, "--output", webpackOutput.absolutePath)(targetDir, logger)
+            Seq.empty
         }
 
+        val allArgs = Seq(
+          "--entry", loader.absolutePath,
+          "--output-path", targetDir.absolutePath,
+          "--output-filename", webpackOutput.name
+        ) ++ configArgs
+
+        NpmPackage(webpackVersion).major match {
+          case Some(5) =>
+            Webpack.run(nodeArgs: _*)(allArgs: _*)(targetDir, logger)
+          case Some(x) =>
+            sys.error(s"Unsupported webpack major version $x")
+          case None =>
+            sys.error("No webpack version defined")
+        }
         Attributed(webpackOutput)(bundleOutput.metadata)
       }
       else bundleOutput

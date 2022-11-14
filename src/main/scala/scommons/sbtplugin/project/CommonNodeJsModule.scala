@@ -1,6 +1,7 @@
 package scommons.sbtplugin.project
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
+import org.scalajs.linker.interface.ESVersion
 import org.scalajs.jsenv.nodejs.NodeJSEnv
 import org.scalajs.sbtplugin.ScalaJSPlugin
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
@@ -38,13 +39,18 @@ trait CommonNodeJsModule extends CommonModule {
 object CommonNodeJsModule {
 
   val settings: Seq[Setting[_]] = Seq(
+    scalacOptions ++= Seq(
+      //see:
+      //  http://www.scala-js.org/news/2021/12/10/announcing-scalajs-1.8.0/
+      "-P:scalajs:nowarnGlobalExecutionContext"
+    ),
     scalaJSLinkerConfig ~= {
       _.withModuleKind(ModuleKind.CommonJSModule)
         .withSourceMap(false)
-        .withESFeatures(_.withUseECMAScript2015(false))
+        .withESFeatures(_.withESVersion(ESVersion.ES5_1))
     },
     Test / requireJsDomEnv := false,
-    webpack / version := "4.29.0",
+    webpack / version := "5.74.0",
     webpackEmitSourceMaps := false,
     Test / parallelExecution := false,
 
