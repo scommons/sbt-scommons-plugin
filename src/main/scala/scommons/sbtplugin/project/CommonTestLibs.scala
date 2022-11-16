@@ -5,7 +5,7 @@ import sbt._
 
 trait CommonTestLibs {
 
-  val scalaTestVersion = "3.2.14"
+  val scalaTestVersion = "3.2.10"
   val scalaTestPlusMockitoVersion = "3.2.10.0"
   val scalaTestPlusPlayVersion = "5.1.0"
   val scalaMockVersion = "5.2.0"
