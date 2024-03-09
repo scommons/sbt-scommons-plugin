@@ -16,4 +16,4 @@ addSbtPlugin("org.scommons.sbt" % "sbt-scommons-plugin" % [version])
 
 ## Documentation
 
-You can find all documentation [here](https://scommons.org/sbt-scommons-plugin)
+You can find all documentation [here](https://scommons.github.io/sbt-scommons-plugin)
